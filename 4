@@ -1,0 +1,34 @@
+pragma solidity ^0.6.0;
+
+contract StudentManagement
+{
+    struct Student
+    {
+        int256 stud_id;
+        string name;
+        string department;
+    }
+    
+    Student[] public students;
+
+    // Function to add a student
+    function addStudent(int256 stud_id, string memory name, string memory department) public 
+    {
+        Student memory newStudent = Student(stud_id, name, department);
+        students.push(newStudent);
+    }
+
+    // Function to retrieve student information by ID
+    function getStudent(int256 stud_id) public view returns (string memory, string memory) 
+    {
+        for (uint256 i = 0; i < students.length; i++)
+        {
+            Student memory stud = students[i];
+            if (stud.stud_id == stud_id)
+            {
+                return (stud.name, stud.department);
+            }
+        }
+        return ("not found", "not found");
+    }
+}
